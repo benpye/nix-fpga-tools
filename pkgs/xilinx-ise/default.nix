@@ -3,15 +3,14 @@
 let
   buildFHSUserEnv = callPackage ./fhs.nix { };
   unwrapped = callPackage ./unwrapped.nix { };
-  motif3-compat = callPackage ({ stdenv, pkgs }:
-    stdenv.mkDerivation {
-      name = "motif3-compat";
-      phases = [ "installPhase" ];
-      installPhase = ''
-        mkdir -p $out/lib
-        ln -s ${pkgs.motif}/lib/libXm.so.4 $out/lib/libXm.so.3
-      '';
-    }) { };
+  motif3-compat = pkgs: stdenv.mkDerivation {
+    name = "motif3-compat";
+    phases = [ "installPhase" ];
+    installPhase = ''
+      mkdir -p $out/lib
+      ln -s ${pkgs.motif}/lib/libXm.so.4 $out/lib/libXm.so.3
+    '';
+  };
 in buildFHSUserEnv rec {
   name = "xilinx-ise";
 
@@ -23,7 +22,7 @@ in buildFHSUserEnv rec {
     libstdcxx5
     libuuid
     motif
-    motif3-compat
+    (motif3-compat pkgs)
     xorg.libICE
     xorg.libSM
     xorg.libX11
