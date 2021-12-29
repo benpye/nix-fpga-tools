@@ -1,0 +1,17 @@
+diff -ur a/CPP/7zip/UI/Common/ArchiveExtractCallback.cpp b/CPP/7zip/UI/Common/ArchiveExtractCallback.cpp
+--- a/CPP/7zip/UI/Common/ArchiveExtractCallback.cpp	2021-12-28 18:37:31.728135781 -0800
++++ b/CPP/7zip/UI/Common/ArchiveExtractCallback.cpp	2021-12-28 18:58:55.163340896 -0800
+@@ -1198,6 +1198,13 @@
+   if (!_link.linkPath.IsEmpty())
+   {
+     #ifndef UNDER_CE
++    if (NFind::DoesFileOrDirExist(fullProcessedPath))
++    {
++      if (!DeleteFileAlways(fullProcessedPath))
++      {
++        RINOK(SendMessageError_with_LastError("can't delete file", fullProcessedPath));
++      }
++    }
+     {
+       bool linkWasSet = false;
+       RINOK(SetFromLinkPath(fullProcessedPath, _link, linkWasSet));
