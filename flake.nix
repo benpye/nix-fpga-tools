@@ -19,12 +19,13 @@
       # A Nixpkgs overlay.
       overlay = self: super: {
         xilinx-ise = super.callPackage ./pkgs/xilinx-ise { };
+        xilinx-udev-rules = super.callPackage ./pkgs/xilinx-ise/udev-rules.nix { };
       };
 
       # Provide some binary packages for selected system types.
       packages = forAllSystems (system:
         {
-          inherit (nixpkgsFor.${system}) xilinx-ise;
+          inherit (nixpkgsFor.${system}) xilinx-ise xilinx-udev-rules;
         });
 
       # Add the wrapper to apps for nix run.

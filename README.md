@@ -24,6 +24,9 @@ This flake packages ISE as a Nix package. It is derived from ISE 14.7 for Window
   - Those and a number of other binaries have wrappers and are available on `$PATH`. Please check `pkgs/xilinx-ise/wrappers.nix` for the full list.
   - This package also provides the `xilinx-ise` wrapper for execution of any other ISE tools.
 
+## Using a JTAG cable
+- In order to use a JTAG cable with the Xilinx tools a set of udev rules must be installed. The package `xilinx-udev-rules` may be added to `services.udev.packages` on NixOS to install these rules, other distributions will require different steps.
+
 ## Known issues
 - There is no network access for any tool (including those with wrappers). This is because they are run within a network namespace allowing for a dummy NIC with the appropriate MAC for the included license to be added. So far I am only aware of SmartXplorer that this is a problem for - if there is critical functionality that this breaks it may be possible to come up with some solution.
 - The FPGA editor tool appears to work but has a couple of minor issues. Firstly it takes a long time to launch, this would typically be resolved by running rpcbind/portmap however due to the broken networking this isn't possible. Additionally once running any file browse buttons in the FPGA editor will not work instead giving the error "Can't access this folder. Path is too long." - the path must be typed into the field.

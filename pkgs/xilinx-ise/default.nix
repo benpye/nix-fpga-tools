@@ -3,6 +3,7 @@
 let
   buildFHSUserEnv = callPackage ./fhs.nix { };
   unwrapped = callPackage ./unwrapped.nix { };
+  xilinx-jtag-fw = callPackage ./jtag-fw.nix { };
   motif3-compat = pkgs: stdenv.mkDerivation {
     name = "motif3-compat";
     phases = [ "installPhase" ];
@@ -20,9 +21,11 @@ in buildFHSUserEnv rec {
     glib
     iproute2
     libstdcxx5
+    libusb-compat-0_1
     libuuid
     motif
     (motif3-compat pkgs)
+    xilinx-jtag-fw
     xorg.libICE
     xorg.libSM
     xorg.libX11
