@@ -56,6 +56,6 @@
     "partgen" "netgen" "ngdbuild" "map" "drc" "par" "smartxplorer" "xpwr"
     "pin2ucf" "trce" "speedprint" "bitgen" "bsdlanno" "promgen" "ibiswriter"
     "cpldfit" "tsim" "taengine" "hprep6" "xflow" "ngcbuild" "compxlib"
-    "edif2ngd"
+    "edif2ngd" "xst"
   ];
 })
